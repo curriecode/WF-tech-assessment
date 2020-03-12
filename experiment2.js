@@ -1,4 +1,5 @@
-function appendStickBanner() {
+function setupDom() {
+  //renders html template for banner
   jQuery("#landing-page").append(
     '<div id="stick-banner" type="text/x-custom-template">\
     <button class="close-stick-banner">X</button>\
@@ -6,6 +7,8 @@ function appendStickBanner() {
     <button class="get-free-ink">Get my free ink</button>\
   </div>'
   );
+
+  //styling for banner elements
 
   jQuery("#stick-banner").css({ position: "sticky", bottom: "2em" });
 
@@ -42,10 +45,12 @@ function appendStickBanner() {
   });
 }
 
+//scroll listener to trigger banner toggle
 window.addEventListener("scroll", () => {
   toggleBanner();
 });
 
+//logic to toggle banner on and off when scrolling past plans-section
 function toggleBanner() {
   let el = jQuery("#plans-section").offset();
   if (jQuery(window).scrollTop() > el.top) {
@@ -61,11 +66,12 @@ javascript: (function(e, s, callback) {
   e.onload = function() {
     jQuery.noConflict();
     console.log("jQuery injected");
+    //callback calls setupDom after jQuery injection
     callback();
   };
   document.head.appendChild(e);
 })(
   document.createElement("script"),
   "//code.jquery.com/jquery-latest.min.js",
-  appendStickBanner
+  setupDom
 );
