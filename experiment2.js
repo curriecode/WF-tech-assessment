@@ -1,12 +1,15 @@
 function appendStickBanner() {
   jQuery("#landing-page").append(
-    '<div id="stick-banner hide" type="text/x-custom-template">\
+    '<div id="stick-banner" type="text/x-custom-template">\
     <button class="close-stick-banner">X</button>\
     <p class="banner-text">Get $10 credit towards your plan and try HP Instant ink for <strong>FREE </strong> today. No commitments or fees - change or cancel your plan anytime.</p>\
     <button class="get-free-ink">Get my free ink</button>\
   </div>'
   );
+
   jQuery("#stick-banner").css({ position: "sticky", bottom: "2em" });
+
+  jQuery(".hide").css({ visibility: "hidden" });
 
   jQuery(".close-stick-banner").css({
     position: "relative",
@@ -37,6 +40,19 @@ function appendStickBanner() {
     marginTop: "12px",
     padding: "5px 20px 5px 20px"
   });
+}
+
+window.addEventListener("scroll", () => {
+  toggleBanner();
+});
+
+function toggleBanner() {
+  let el = jQuery("#plans-section").offset();
+  if (jQuery(window).scrollTop() > el.top) {
+    jQuery("#stick-banner").removeClass("hide");
+  } else {
+    jQuery("#stick-banner").addClass("hide");
+  }
 }
 
 //inject jQuery into the console
