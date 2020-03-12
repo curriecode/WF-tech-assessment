@@ -1,7 +1,9 @@
 function setupDom() {
+  jQuery(".hide").css({ visibility: "hidden" });
+
   //renders html template for banner
   jQuery("#landing-page").append(
-    '<div id="stick-banner" type="text/x-custom-template">\
+    '<div id="stick-banner" class="hide" type="text/x-custom-template">\
     <button class="close-stick-banner">X</button>\
     <p class="banner-text">Get $10 credit towards your plan and try HP Instant ink for <strong>FREE </strong> today. No commitments or fees - change or cancel your plan anytime.</p>\
     <button class="get-free-ink">Get my free ink</button>\
@@ -10,9 +12,10 @@ function setupDom() {
 
   //styling for banner elements
 
-  jQuery("#stick-banner").css({ position: "sticky", bottom: "2em" });
-
-  jQuery(".hide").css({ visibility: "hidden" });
+  jQuery("#stick-banner").css({
+    position: "sticky",
+    bottom: "4em"
+  });
 
   jQuery(".close-stick-banner").css({
     position: "relative",
@@ -43,12 +46,14 @@ function setupDom() {
     marginTop: "12px",
     padding: "5px 20px 5px 20px"
   });
-}
 
-//scroll listener to trigger banner toggle
-window.addEventListener("scroll", () => {
-  toggleBanner();
-});
+  //event handler for the X button to close the banner
+  let closeButton = document.querySelector(".close-stick-banner");
+
+  closeButton.addEventListener("click", () => {
+    closeBanner();
+  });
+}
 
 //logic to toggle banner on and off when scrolling past plans-section
 function toggleBanner() {
@@ -58,6 +63,16 @@ function toggleBanner() {
   } else {
     jQuery("#stick-banner").addClass("hide");
   }
+}
+
+//scroll listener to trigger banner toggle
+window.addEventListener("scroll", () => {
+  toggleBanner();
+});
+
+//logic to close banner
+function closeBanner() {
+  document.querySelector("#stick-banner").remove();
 }
 
 //inject jQuery into the console
