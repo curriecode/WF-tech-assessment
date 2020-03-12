@@ -2,7 +2,7 @@ function setupDom() {
   jQuery("#pricing-tabs-wrapper").before(
     '<div class="main-filter-container">\
     <div class="filter-inner"> \
-    <div class="badge-printing filter-box"><span class="filter-text">Badge Printing</span></div>\
+    <div class="badge-printing filter-box"><i class="far fa-address-card"></i><span class="filter-text">Badge Printing</span></div>\
     <div class="document-signing filter-box"><span class="filter-text">Legal Document Signing</span></div>\
     <div class="visitor-photos filter-box"><span class="filter-text">Visitor Photos</span></div>\
     <div class="signin-flow filter-box"><span class="filter-text">Multiple sign in flows</span></div>\
@@ -42,17 +42,38 @@ function setupDom() {
 }
 
 //inject jQuery into the console
-javascript: (function(e, s, callback) {
-  e.src = s;
-  e.onload = function() {
-    jQuery.noConflict();
-    console.log("jQuery injected");
-    //callback calls setupDom after jQuery injection
-    callback();
-  };
-  document.head.appendChild(e);
-})(
-  document.createElement("script"),
-  "//code.jquery.com/jquery-latest.min.js",
-  setupDom
-);
+function loadJquery() {
+  console.log("-- loading jquery");
+  javascript: (function(e, s, callback) {
+    e.src = s;
+    e.onload = function() {
+      jQuery.noConflict();
+      console.log("-- jQuery injected");
+      //callback calls setupDom after jQuery injection
+      callback();
+    };
+    document.head.appendChild(e);
+  })(
+    document.createElement("script"),
+    "//code.jquery.com/jquery-latest.min.js",
+    setupDom
+  );
+}
+
+function loadFontAwesome() {
+  javascript: (function(e, s, callback) {
+    e.href = s;
+    e.rel = "stylesheet";
+
+    e.onload = function() {
+      console.log("-- Font Awesome injected");
+      callback();
+    };
+    document.head.appendChild(e);
+  })(
+    document.createElement("link"),
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css",
+    loadJquery
+  );
+}
+loadFontAwesome();
