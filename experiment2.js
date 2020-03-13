@@ -1,7 +1,9 @@
+//TO run code go to https://instantink.hpconnected.com/us/en/l/ and copy and paste into the dev tools console
+
 function setupDom() {
   jQuery(".hide").css({ visibility: "hidden" });
 
-  //renders html template for banner
+  //renders html template for sticky banner
   jQuery("#landing-page").append(
     '<div id="stick-banner" class="hide" type="text/x-custom-template">\
     <button class="close-stick-banner">X</button>\

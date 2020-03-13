@@ -1,3 +1,5 @@
+//To run code go to https://envoy.com/pricing/ and copy and paste into the dev tools console
+
 let selected = [];
 function setupDom() {
   //html template for filter cards
