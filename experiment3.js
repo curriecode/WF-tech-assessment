@@ -28,7 +28,6 @@ function setupDom() {
   jQuery(".filter-card").css({
     display: "flex",
     flexDirection: "column",
-    // alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
     margin: "0px 10px 0px 10px",
@@ -60,7 +59,10 @@ function setupDom() {
     fontSize: "30px"
   });
 
-  //click handler to toggle filter card color from black to red on click
+  setupPricingCards();
+
+  //click handler to toggles filter card color from black to red on click
+  //tracks which cards have been clicked or 'selected' based on the data attributes value
   jQuery(".filter-card").click(event => {
     let parentCard = jQuery(event.target).closest(".filter-card");
     let cardData = parentCard.data().card;
@@ -72,51 +74,7 @@ function setupDom() {
     parentCard.toggleClass("red");
     assignRecommend();
   });
-
-  //html for 'we recommend' banner
-  // jQuery(".pricing-card").before(
-  //   '<div class="recommend"><span class="rec-text">We recommend</span></div>'
-  // );
-
-  setupPricingCards();
 }
-
-//inject jQuery into the console
-function loadJquery() {
-  console.log("-- loading jquery");
-  javascript: (function(e, s, callback) {
-    e.src = s;
-    e.onload = function() {
-      jQuery.noConflict();
-      console.log("-- jQuery injected");
-      //callback calls setupDom after jQuery injection
-      callback();
-    };
-    document.head.appendChild(e);
-  })(
-    document.createElement("script"),
-    "//code.jquery.com/jquery-latest.min.js",
-    setupDom
-  );
-}
-
-function loadFontAwesome() {
-  javascript: (function(e, s, callback) {
-    e.href = s;
-    e.rel = "stylesheet";
-
-    e.onload = function() {
-      console.log("-- Font Awesome injected");
-      callback();
-    };
-    document.head.appendChild(e);
-  })(
-    document.createElement("link"),
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css",
-    loadJquery
-  );
-}
-loadFontAwesome();
 
 function isStandard(text) {
   return text.includes("Standard");
@@ -130,6 +88,7 @@ function isEnterprise(text) {
   return text.includes("Enterprise");
 }
 
+//adds unique selectors to pricing cards
 function setupPricingCards() {
   jQuery(".pricing-card").each(function() {
     let card = $(this);
@@ -144,10 +103,12 @@ function setupPricingCards() {
   });
 }
 
+//logic to check if enterprise should be recommended
 function recommendEnterprise() {
   return selected.length === 6 && !jQuery(".enterprise-recommend").length;
 }
 
+//logic to check if premium should be recommended
 function recommendPremium() {
   return (
     selected.includes("noti") &&
@@ -157,6 +118,7 @@ function recommendPremium() {
   );
 }
 
+//logic to check if standard should be recommended
 function recommendStandard() {
   return (
     selected.includes("badge") &&
@@ -165,6 +127,7 @@ function recommendStandard() {
   );
 }
 
+//logic to append or remove banner html from pricing cards based on selected filters
 function assignRecommend() {
   if (recommendEnterprise()) {
     jQuery(".enterprise").each(function() {
@@ -195,7 +158,7 @@ function assignRecommend() {
     jQuery(".premium-recommend").remove();
     jQuery(".enterprise-recommend").remove();
   }
-  //styling for 'we recommend' banner
+  //styling for 'we recommend' banner. Added at the end because it won't apply unless an element exists.
   jQuery(".recommend").css({
     width: "100%",
     height: "35px",
@@ -208,3 +171,40 @@ function assignRecommend() {
     borderRadius: "3px 3px 0px 0px"
   });
 }
+
+//inject jQuery into the console
+function loadJquery() {
+  console.log("-- loading jquery");
+  javascript: (function(e, s, callback) {
+    e.src = s;
+    e.onload = function() {
+      jQuery.noConflict();
+      console.log("-- jQuery injected");
+      //callback calls setupDom after jQuery injection
+      callback();
+    };
+    document.head.appendChild(e);
+  })(
+    document.createElement("script"),
+    "//code.jquery.com/jquery-latest.min.js",
+    setupDom
+  );
+}
+
+//inject font-awesome cdn to load icons
+function loadFontAwesome(e, s, callback) {
+  e.href = s;
+  e.rel = "stylesheet";
+
+  e.onload = function() {
+    console.log("-- Font Awesome injected");
+    callback();
+  };
+  document.head.appendChild(e);
+}
+
+loadFontAwesome(
+  document.createElement("link"),
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css",
+  loadJquery
+);
