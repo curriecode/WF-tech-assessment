@@ -3,11 +3,11 @@ function setupDom() {
     '<div class="main-filter-container">\
     <div class="filter-inner"> \
     <div class="badge-printing filter-box"><i class="far fa-address-card"></i><span class="filter-text">Badge Printing</span></div>\
-    <div class="document-signing filter-box"><span class="filter-text">Legal Document Signing</span></div>\
-    <div class="visitor-photos filter-box"><span class="filter-text">Visitor Photos</span></div>\
-    <div class="signin-flow filter-box"><span class="filter-text">Multiple sign in flows</span></div>\
-    <div class="visitor-screening filter-box"><span class="filter-text">Visitor Screening</span></div>\
-    <div class="del-notification filter-box"><span class="filter-text">Delivery Notifications</span></div>\
+    <div class="document-signing filter-box"><i class="far fa-file-alt"></i><span class="filter-text">Legal Document Signing</span></div>\
+    <div class="visitor-photos filter-box"><i class="fas fa-portrait"></i><span class="filter-text">Visitor Photos</span></div>\
+    <div class="signin-flow filter-box"><i class="fas fa-users"></i><span class="filter-text">Multiple sign in flows</span></div>\
+    <div class="visitor-screening filter-box"><i class="fas fa-shield-alt"></i><span class="filter-text">Visitor Screening</span></div>\
+    <div class="del-notification filter-box"><i class="fas fa-box"></i><span class="filter-text">Delivery Notifications</span></div>\
     </div>\
     </div> '
   );
@@ -23,7 +23,8 @@ function setupDom() {
 
   jQuery(".filter-box").css({
     display: "flex",
-    alignItems: "center",
+    flexDirection: "column",
+    // alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
     margin: "0px 10px 0px 10px",
@@ -32,12 +33,23 @@ function setupDom() {
     padding: "4px",
     width: "200px",
     fontSize: "15px",
-    boxShadow: "1px 1px 3px lightgray"
+    boxShadow: "1px 1px 3px 3px #eeeeee"
   });
 
   jQuery(".filter-text").css({
     background: "rgb(253, 253, 253)",
     borderRadius: "3px"
+  });
+
+  jQuery(".far").css({
+    position: "relative",
+    bottom: "20px",
+    fontSize: "30px"
+  });
+  jQuery(".fas").css({
+    position: "relative",
+    bottom: "20px",
+    fontSize: "30px"
   });
 }
 
